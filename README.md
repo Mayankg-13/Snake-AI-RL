@@ -1,42 +1,53 @@
-# Snake AI with Reinforcement Learning
+<div align="center">
 
-A Python project implementing an AI agent that learns to play the classic game of Snake using Deep Reinforcement Learning (Deep Q-Learning).
+# 🐍 Snake AI Reinforcement Learning
 
-The agent uses a Feed-Forward Neural Network in PyTorch to approximate Q-values and an epsilon-greedy strategy to explore the environment before eventually exploiting its learned knowledge.
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg?logo=python&logoColor=white)](https://www.python.org)
+[![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?logo=pytorch&logoColor=white)](https://pytorch.org/)
+[![Pygame](https://img.shields.io/badge/Pygame-f0d843?logo=python&logoColor=black)](https://www.pygame.org/)
 
-## Project Structure
+**An autonomous AI agent that learns to play the classic game of Snake using Deep Reinforcement Learning (Deep Q-Learning).**
 
-- `agent.py`: The main driver script. Contains the Reinforcement Learning agent logic, state representation, experience replay, and the training loop.
-- `model.py`: The PyTorch Neural Network architecture (`Linear_QNet`) and the custom Q-Trainer optimizer.
-- `snake_game.py`: A custom Snake game environment built with Pygame, modified to output rewards (+10 for eating food, -10 for a collision) and observe state instead of relying on human input.
-- `helper.py`: A utility using Matplotlib to dynamically plot the score and mean score as the AI trains.
-- `requirements.txt`: Python dependencies required to run the project.
+</div>
 
-## Requirements
+---
 
-Before running the project, you need to install the dependencies. The project requires Python 3.
+## 🧠 How It Works
 
-```bash
-pip install -r requirements.txt --user
-```
+The AI relies on a **Deep Q-Network (DQN)** built via PyTorch. It doesn't know the rules of the game at the start; instead, it observes the environment and receives a reward based on its actions.
+- 🍏 **Reward Policy:** `+10` for finding food, `-10` for a wall or body collision.
+- 🔍 **State Observation:** The AI strictly analyzes its surroundings via an 11-dimensional state vector (Danger Straight/Right/Left, move direction, food relative location).
+- 🎲 **Epsilon-Greedy Strategy:** In the beginning, the snake moves randomly to map out its environment. Over time, it starts exclusively trusting the Neural Network.
 
-**Required Packages:**
-- `pygame`: For rendering the game environment.
-- `torch` (PyTorch): For the Deep Q-Network.
-- `matplotlib` & `ipython`: For realtime training visualization.
-- `numpy`: For fast array operations representing game state.
+## 🛠️ Project Architecture
 
-## How to Run
+| File | Description |
+| ---- | ----------- |
+| `agent.py` | 🎮 The main driver. Executes the game loop, parses the state, and directs "short" vs "batch" memory training. |
+| `model.py` | 🧬 Defines the `Linear_QNet` PyTorch model alongside a custom `QTrainer` optimizer utilizing MSELoss and Adam. |
+| `snake_game.py` | 🖼️ A custom pygame engine modified to execute single steps `play_step(action)` instead of standard continuous human loops. |
+| `helper.py` | 📈 A Matplotlib plotting module that visualizes the AI's training success rate in real-time. |
 
-To launch the training process, execute the main agent script:
+## 🚀 Installation & Usage
 
-```bash
-python agent.py
-```
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Mayankg-13/Snake-AI-RL.git
+   cd Snake-AI-RL
+   ```
 
-### What to Expect
-1. A Pygame window will launch showcasing the snake traversing the grid.
-2. A Matplotlib plot will appear that tracks the Score per Game and Average Score over time.
-3. At first, the agent will move randomly to explore its environment. This is controlled by the `epsilon` variable.
-4. After ~80 games, the `epsilon` value decays to zero, and the model starts relying entirely on the neural network's predictions. You will see an explosion in Average Score.
-5. Whenever the agent breaks its high score, it saves the current model parameters in a newly generated `model/` directory.
+2. **Install the dependencies:**
+   It is recommended to run this in a virtual environment.
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Start the AI Training:**
+   ```bash
+   python agent.py
+   ```
+
+---
+<div align="center">
+  <i>Watch the plotted graph—things get exciting around the 80th attempt when the AI stops taking random routes!</i>
+</div>
