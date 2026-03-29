@@ -21,6 +21,16 @@ The AI relies on a **Deep Q-Network (DQN)** built via PyTorch. It doesn't know t
 
 ## 🛠️ Project Architecture
 
+```text
+Snake-AI-RL/
+├── model/              # Directory where trained models are saved (.pth files)
+├── agent.py            # Main RL agent, game loop, and training logic
+├── helper.py           # Real-time training visualization tool
+├── model.py            # Neural network architecture and QTrainer
+├── requirements.txt    # Python dependencies
+└── snake_game.py       # Custom Pygame environment modified for AI
+```
+
 | File | Description |
 | ---- | ----------- |
 | `agent.py` | 🎮 The main driver. Executes the game loop, parses the state, and directs "short" vs "batch" memory training. |
